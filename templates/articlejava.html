@@ -1,0 +1,104 @@
+{% extends 'base_layout.html' %}
+
+{% block content %}
+<style>
+    .card-body>h5{
+        font-size: 14px;
+        padding: 0px;
+        margin: 0px;
+    }
+    .card-body>p, .card-body>ul>li>a{
+        font-size: 12px;
+        padding: 0px;
+        margin: 0px;
+    }
+
+    .bgc-primary{
+      background-color: #9fa8da;
+    }
+    .article_title{
+      font-weight: 800;
+      font-size: 3em !important;
+    }
+
+    .card-body{
+      padding: 0rem;
+      margin: 0px;
+    }
+
+    .card-body > ul{
+      list-style-type: none;
+      padding: 0px;
+      margin: 0px;
+    }
+    .article > p, .article > h1, .article > h2, .article > h3, .article > h4, .article > h5, .article > h6, .article > a{
+      font-family: 'Times New Roman', Times, serif !important;
+      font-size: 1.2em;
+    }
+</style>
+<div class="container-fluid">
+    <div class="row">
+      <div class="col-12 my-2">
+        <ul class="nav nav-pills justify-content-center">
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="{%url 'home_content'%}">Home</a>
+          </li>
+          {% for item in nav_item%}
+          {% if item.tab_Name == "Java" %}
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">{{item.tab_Name}}</a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item active" href="{url 'java'}">{{item.tab_Name}}</a></li>
+                {% for meta in meta_title_list %}
+                  <li><a class="dropdown-item" href="#{{meta.meta_title}}">{{meta.meta_title}}</a></li>
+                {% endfor %}
+              </ul>
+            </li>
+          {% elif item.tab_Name == "Algorithms" %}
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="{%url 'algorithms'%}">{{item.tab_Name}}</a>
+            </li>
+          {% elif item.tab_Name == "Data Structures" %}
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="{%url 'datastructures'%}">{{item.tab_Name}}</a>
+            </li>
+          {% elif item.tab_Name == "C++" %}
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="{%url 'cpp'%}">{{item.tab_Name}}</a>
+            </li>
+          {% endif %}
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row">
+    <!--------------------------------------------------------------------------------->
+        <div class="col-sm-2">
+          <div class="rounded border-2">
+            <div class="card">
+              <div class="card-header">
+                Menu
+              </div>
+              <div class="card-body">
+                {% for item in meta_title %}
+                    <h5 class="bgc-primary text-light p-1"><b>{{item.title_no}}. {{item.meta_title}}</b></h5>
+                        <ul>
+                          {% for post in all_articles %}
+                            {% if item.title_no == post.meta_title_no %}
+                              <li><a href="{% url 'java_detail' slug=post.slug %}">>> {{post.title}}</a></li>
+                            {% endif %}
+                          {% endfor %}
+                        </ul>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-10 article">
+            <p class="article_title text-center bgc-primary text-light">{{article.sub_title_no}}. {{article.title}}</p>
+            {{article.body | safe }}
+        </div>
+    </div>
+{% endblock %}

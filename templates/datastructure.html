@@ -1,0 +1,79 @@
+{% extends 'base_layout.html' %}
+
+{% block content %}
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12 my-2">
+      <ul class="nav nav-pills justify-content-center">
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" href="{%url 'home_content'%}">Home</a>
+        </li>
+        {% for item in nav_item%}
+        {% if item.tab_Name == "Data Structures" %}
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">{{item.tab_Name}}</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item active" href="{%url 'datastructures'%}">{{item.tab_Name}}</a></li>
+              {% for meta in meta_title_list %}
+                <li><a class="dropdown-item" href="#{{meta.meta_title}}">{{meta.meta_title}}</a></li>
+              {% endfor %}
+            </ul>
+          </li>
+        {% elif item.tab_Name == "Algorithms" %}
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="{%url 'algorithms'%}">{{item.tab_Name}}</a>
+          </li>
+        {% elif item.tab_Name == "C++" %}
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="{%url 'cpp'%}">{{item.tab_Name}}</a>
+          </li>
+        {% elif item.tab_Name == "Java" %}
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="{%url 'java'%}">{{item.tab_Name}}</a>
+          </li>
+        {% endif %}
+        {% endfor %}
+  </ul>
+    </div>
+  </div>
+</div>
+<div class="container-fluid">
+  <div class="row">
+<!--------------------------------------------------------------------------------->
+<div class="col-sm-2 py-2">
+  <ul>
+  </ul>
+</div>
+<div class="col-sm-8 py-2">
+  <table class="table table-bordered table-sm">
+    <thead>
+      <tr>
+        <th scope="col-1" class="col-sm-1">Sl no.</th>
+        <th scope="col-11" class="col-sm-11 text-center">Data Structures</th>
+      </tr>
+    </thead>
+  </table>
+{% for meta in meta_title_list %}
+  <table class="table table-bordered table-sm table-hover">
+    <thead>
+        <tr class="table-primary">                            
+            <th scope="col" class="col-sm-1">{{meta.title_no}}</th>
+            <th scope="col" class="col-sm-11">{{meta.meta_title}}</th>
+        </tr>
+    </thead>
+    {% for post in articles %}
+      {% if meta.title_no == post.meta_title_no %}
+        <tbody>
+          <th scope="row" class="col-sm-1">{{post.sub_title_no}}</th>
+          <td scope="col-11" class="col-sm-11"><a href="{% url 'datastructure_detail' slug=post.slug %}">{{post.title}}</a></td>
+        </tbody>
+      {% endif %}
+    {% endfor %}
+  </table>
+{% endfor %}
+</div>
+<div class="col-sm-2 py-2">
+  <ul>
+  </ul>
+</div>
+{% endblock %}

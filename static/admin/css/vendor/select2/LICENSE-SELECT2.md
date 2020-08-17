@@ -1,0 +1,1 @@
+/home/sourabh/Documents/Djangoenv/lib/python3.8/site-packages/django/contrib/admin/static/admin/css/vendor/select2/LICENSE-SELECT2.md

@@ -1,2 +1,2 @@
 # cpxtreme
-A Django based website for posting competitive progrogramming content
+A Django based web Template for posting programming Tutorials.
